@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--need to give every element that JavaScript will interact with a unique id-->
+
+<!--box for user to type something in, defaults to text entry-->
+<label for="new-text">Enter your text</label><br>
+<input id="new-text">
+
+<!--an empty list, contents will be created with JavaScript-->
+<!--based on data user enters-->
+<ul id="list-of-text">
+<!--empty list, no child elements -->
+</ul>
+
+<button id="add-new-text">Add text to list</button>
+<br>
+<button id="clear-all-list">Clear all list items</button>
+
+
+<script>
+
+    let addNewTextButton = document.querySelector('#add-new-text')
+    let newTextInput = document.querySelector('#new-text')
+    let unorderedListOfTextElement = document.querySelector('#list-of-text')
+    let clearAllListButton = document.querySelector('#clear-all-list')
+
+    let numberOfItemsInList = 0 // used to count items in list
+
+    clearAllListButton.addEventListener('click', function () {
+        // alert('hello') // test
+        // empty list has innerHTML of an empty string
+        unorderedListOfTextElement.innerHTML = '' // set value of ul to empty string to clear it
+        // TODO set numberOfItemsInList to 0
+    })
+
+    addNewTextButton.addEventListener('click', function() {
+        // alert('click!')  // just a test - should see this alert when button is clicked
+
+        // validation first in a function!
+        // do we have 10 items? can't have more than 10!
+        if (numberOfItemsInList >= 10) {
+            // can't add item
+            alert('You can only have 10 items in your list!')
+            return // stop function - don't run below code in function
+        }
+
+        let newTextEntered = newTextInput.value // read text entered in input element
+        // alert(newTextEntered) // just testing
+
+        // check the length of the newTextEntered and make sure it's 1-50 characters
+        if (newTextEntered.length > 50) {
+            // TODO show alert
+            return // stop function
+        }
+
+        if (newTextEntered.length == 0) { // TODO is the length == 0 ?
+            // don't show an alert
+            return // stop processing function
+        }
+
+        // make a new li element
+        let newLiElement = document.createElement('li')
+        // configure and customize this element - what text will be displayed?
+        newLiElement.innerHTML = newTextEntered
+
+        // add the li child element to the ul element
+        unorderedListOfTextElement.appendChild(newLiElement)
+
+        // increase count of items in list by 1
+        numberOfItemsInList = numberOfItemsInList + 1
+
+        // clear text from input by setting the value to an empty string
+        newTextInput.value = ''
+
+
+    })
+
+
+    // Part 1d:  Add validation using JavaScript. The form should only accept text of
+    // length between 1 and 50 characters.
+    //
+    // Ignore the user input if there is no text entered
+    // Display an alert error message if the text too long - more than 50 characters.
+    // Do not clear the text in the input.
+</script>
+
+</body>
+</html>
