@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <!--HTML goes here-->
+    <button>Click here!</button>
+
+<script>
+
+    // Script goes here
+    let button = document.querySelector('button')  // create variable
+
+    button.addEventListener('click', function () {  // listen for click of button
+        alert('You clicked the button!')
+
+        button.innerHTML = 'You clicked the button!'  // change text on button
+
+        button.style.backgroundColor = 'red' // change css of button
+
+        // button.remove()  // remove button from page
+    })
+
+    // can also be written as:
+    // function showAlert() {  // create/define function to pass to event listener
+    //     alert("You clicked the button!")
+    // }
+
+    // button.addEventListener('click', showAlert)  // pass a function as an argument
+
+</script>
+
+</body>
+</html>
