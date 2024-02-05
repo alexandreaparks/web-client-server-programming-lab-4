@@ -131,10 +131,16 @@
             return
         }
 
+        // decrease student count variable
+        numberOfStudents = numberOfStudents - studentsToDelete.length
+
         // loop through students to delete node list and remove each element
         studentsToDelete.forEach(function (student) {
             student.remove()
         })
+
+        // update student count span after removing students
+        studentCountSpanElement.innerHTML = numberOfStudents
     })
 
 </script>
