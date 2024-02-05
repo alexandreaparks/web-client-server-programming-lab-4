@@ -56,82 +56,86 @@
 
     let newStudentNameInput = document.querySelector('#student-name')
     let newStudentIDInput = document.querySelector('#student-id')
-    // TODO GPA
+    let newStudentGPAInput = document.querySelector('#student-gpa')
 
     let newStudentButton = document.querySelector('#add-student')
     let studentClubMemberList = document.querySelector('#student-list')
     let studentCountSpanElement = document.querySelector('#student-count')
+    let removeSelectedStudentsButton = document.querySelector('#remove-selected-students')
 
-    let numberOfStudents = 0
+    // set student count to 0 and display on page when it loads
+    let numberOfStudents = '0'
     studentCountSpanElement.innerHTML = numberOfStudents
 
     newStudentButton.addEventListener('click', function () {
         // read data from inputs, validate, and add new li if valid
         let newStudentName = newStudentNameInput.value
         let newStudentID = newStudentIDInput.value
-        // TODO GPA
+        let newStudentGPA = newStudentGPAInput.value
 
-        if (newStudentName.length == 0) {
+        // input validation
+        if (newStudentName.length === 0) {
             alert('Enter a name')
             return
         }
 
-        if (newStudentID.length == 0) {
+        if (newStudentID.length === 0) {
             alert('Enter an ID')
             return
         }
 
-        // todo validate GPA - is it entered?
+        if (newStudentGPA.length === 0) {
+            alert('Enter a GPA')
+            return
+        }
 
-        // todo validate GPA - is it between 0 and 4? Example of checking a number in a range in the lectures
-
-        // make a new li element
+        if (newStudentGPA < 0 || newStudentGPA > 4) {
+            alert('GPA needs to be in the range 0-4')
+            return
+        }
+        // end of validation
+        // if passed, create li element and set innerHTML to string with student info
         let newStudentListItem = document.createElement('li')
-        newStudentListItem.innerHTML = newStudentName + ' ' + newStudentID  // todo include GPA
+        newStudentListItem.innerHTML = `${newStudentName}, ID ${newStudentID}, GPA ${newStudentGPA}`
+
+        // click event handler for new li element
+        // toggle selected class on/off when clicked
+        newStudentListItem.addEventListener('click', function () {
+            newStudentListItem.classList.toggle('selected') // toggle the selected class
+        })
+
+        // add li element to student list
         studentClubMemberList.appendChild(newStudentListItem)
 
+        // clear values from 3 input elements
+        newStudentNameInput.value = ''
+        newStudentIDInput.value = ''
+        newStudentGPAInput.value = ''
+
+
+        // increase number of students by 1 and update span element
         numberOfStudents++
         studentCountSpanElement.innerHTML = numberOfStudents
 
-        // todo clear form, set value of inputs to empty string
-
-
-
-
-
     })
 
+    // when remove button is clicked, remove all selected students
+    // remove elements from the list that have the selected class
+    removeSelectedStudentsButton.addEventListener('click', function () {
+        // select all items with .selected class
+        let studentsToDelete = document.querySelectorAll('.selected')
 
+        // show alert if no students are selected and stop function
+        if (studentsToDelete.length === 0) {
+            alert('No students have been selected to remove')
+            return
+        }
 
-    /* Add the following functionality to this page
-
-    [Note on HTML element notation: span#student-count means the span element with id="student-count" ]
-
-    When the page loads:
-        * Using JavaScript, display 0 in the span#student-count  (1pt)
-
-        * Add an event listener so that when button#add-students is clicked:
-            - Read the value from the student-name input, save in a variable. If the name is not entered, show an alert error message and return. (1pt)
-            - Read the value from the student-id input, save in a variable. If the id is not entered, show an alert error message and return. (1pt)
-            - Read the value from the student-gpa input, save in a variable. If the GPA is not entered, or is not in the range 0-4, show an alert error message and return.  (1pt)
-            - Create a new li element (1pt)
-            - Set the innerHTML of the li element to a string containing the student's name, id, and GPA  (1pt)
-                for example "Beyonce Knowles, id: aa1234bb, GPA 3.8"
-                Use a template string to generate this string
-            - Add a click event handler to the new li element.  (3pt)
-            - When the li element is clicked, add the class="selected" to that li element.
-            - When that li element is clicked again, remove the class="selected" from that li element
-                In other words, clicking a li element will toggle the selected class. https://www.w3schools.com/howto/howto_js_toggle_class.asp
-            - Add the new li element to ul#student-list element (1pt)
-            - Clear the values of the three input elements (1pt)
-            - Update the span#student-count value to the new number of students (1pt)
-
-        * Add an event listener so that when button#remove-selected-students is clicked:
-            - Remove all of the elements with the class="selected" from the list.   (3pt)
-            - Using the remove() function on an element will remove it. Example https://jsfiddle.net/rk9pm4vg/
-
-        You should not need to modify any of the HTML.
-    */
+        // loop through students to delete node list and remove each element
+        studentsToDelete.forEach(function (student) {
+            student.remove()
+        })
+    })
 
 </script>
 
