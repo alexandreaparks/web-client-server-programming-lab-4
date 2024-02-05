@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cats with Tabs</title>
+    <link rel="stylesheet" type="text/css" href="tabs_style.css">
+</head>
+<body>
+
+    <h1 id="header">Alexandrea's Cats</h1>
+
+    <div id="tabs">
+        <button data-content-id="stella" class="tab-button">Stella</button>
+        <button data-content-id="riley" class="tab-button">Riley</button>
+        <button data-content-id="august-pepper" class="tab-button">August Pepper</button>
+    </div>
+
+    <div id="stella" class="tab-content">
+        <img src="stella.jpg"
+             class="favorite-image"
+             alt="Image of black, brown, and white cat"
+             height="400" width="300">
+    </div>
+    <div id="riley" class="tab-content">
+        <img src="riley.jpg"
+             class="favorite-image"
+             alt="Image of grey cat"
+             height="400" width="300">
+    </div>
+    <div id="august-pepper" class="tab-content">
+        <img src="august_pepper.jpg"
+             class="favorite-image"
+             alt="Image of black and white cat"
+             height="500" width="300">
+    </div>
+
+
+<script>
+    // without JavaScript, everything is displayed on the page at once
+    // can use JavaScript to only display one description at a time for the selected tab
+
+    let buttons = document.querySelectorAll('.tab-button')  // works with any # of tabs
+    let tabContents = document.querySelectorAll('.tab-content')
+
+    tabContents.forEach( function(divEL) {
+        divEL.style.display = 'none'  // makes invisible
+    })
+
+    // display first tab when page loads
+    tabContents[0].style.display = 'block'
+    buttons[0].classList.add('active')
+
+    buttons.forEach( function (button) {
+        button.addEventListener('click', function() {
+
+            // hide all content
+            tabContents.forEach( function(divEL) {
+                divEL.style.display = 'none'  // makes invisible
+            })
+
+            // remove any active classes that may be applied to button elements
+            buttons.forEach(function (button) {
+                button.classList.remove('active')
+            })
+
+            // add active class to THIS button element
+            this.classList.add('active')
+
+
+            // show selected tab content
+            let contentID = this.getAttribute('data-content-id')  // get details about THIS element that generated event
+
+            let tabContent = document.querySelector('#' + contentID)  // example: #stella
+            tabContent.style.display = 'block'
+        })
+    })
+
+
+
+
+</script>
+
+</body>
+</html>

@@ -31,6 +31,7 @@
         let clearAllListButton = document.querySelector('#clear-all-list')
 
         let numberOfItemsInList = 0 // used to count items in list
+        let maxElementsAllowedInList = 10
 
         clearAllListButton.addEventListener('click', function () {
             // alert('hello') // test
@@ -43,29 +44,30 @@
         addNewTextButton.addEventListener('click', function() {
             // alert('click!')  // just a test - should see this alert when button is clicked
 
-            // validation first in a function!
-            // do we have 10 items? can't have more than 10!
-            if (numberOfItemsInList >= 10) {
+            // validation first in a function - check if there's 10 or more items in list
+            if (numberOfItemsInList >= maxElementsAllowedInList) {
                 // can't add item
                 alert('You can only have 10 items in your list!')
                 return // stop function - don't run below code in function
             }
 
+            // if validation passes, get the inputted value
             let newTextEntered = newTextInput.value // read text entered in input element
             // alert(newTextEntered) // just testing
 
+            // more validation
             // check the length of the newTextEntered and make sure it's 1-50 characters
             if (newTextEntered.length > 50) {
                 alert("You can only enter up to 50 characters!")
-                return // stop function
+                return // stop processing function
             }
 
-            if (newTextEntered.length == 0) { // TODO is the length == 0 ?
+            if (newTextEntered.length === 0) {  // if nothing is entered
                 // don't show an alert
                 return // stop processing function
             }
 
-            // make a new li element
+            // if above validation passes - make a new li element
             let newLiElement = document.createElement('li')
             // configure and customize this element - what text will be displayed?
             newLiElement.innerHTML = newTextEntered
